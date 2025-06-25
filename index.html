@@ -94,14 +94,20 @@ body {
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-window.userDataForGodot = "nothing12";
+    window.userDataForGodot = JSON.stringify({
+  		id: 12,
+  		username: "lol",
+	});
 
 function tryLoadTelegramUser() {
   const user = Telegram.WebApp.initDataUnsafe?.user;
 
   if (user) {
     console.log("Telegram user loaded:", user.username);
-    window.userDataForGodot = user.username ?? "no_username";
+    window.userDataForGodot = JSON.stringify({
+  		id: user.id,
+  		username: user.username,
+	});
   } else {
     console.warn("User not available yet");
   }
@@ -141,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":237360,"index.wasm":1626559},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":237440,"index.wasm":1626559},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
