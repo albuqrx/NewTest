@@ -92,7 +92,32 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
-<meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+  // Пример: получение данных Telegram WebApp
+  let telegramUser = null;
+
+  // Этот объект предоставляется Telegram Web App
+  if (window.Telegram && Telegram.WebApp) {
+    Telegram.WebApp.ready();
+
+    telegramUser = Telegram.WebApp.initDataUnsafe.user;
+
+    // Сохраняем в глобальной области
+    window.userDataForGodot = {
+      id: telegramUser.id,
+      username: telegramUser.username
+    };
+  } else {
+    // Тестовые данные
+    window.userDataForGodot = {
+      id: 123456789,
+      username: "test_user"
+    };
+  }
+
+console.log(window.userDataForGodot)
+</script>
+
 	</head>
 	<body>
 		<canvas id="canvas">
@@ -111,7 +136,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":312144,"index.wasm":1626559},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":105392,"index.wasm":1626559},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
