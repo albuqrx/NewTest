@@ -96,28 +96,29 @@ body {
 <script>
 window.userDataForGodot = "nothing";
 
+function tryLoadTelegramUser() {
+  const user = Telegram.WebApp.initDataUnsafe?.user;
+
+  if (user) {
+    console.log("Telegram user loaded:", user.username);
+    window.userDataForGodot = user.username ?? "no_username";
+  } else {
+    console.warn("User not available yet");
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-  // Проверяем, доступен ли Telegram WebApp
   if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.ready();
-
-    // Расширяем WebView
     Telegram.WebApp.expand();
 
-    // Безопасный доступ к пользователю
-    const user = Telegram.WebApp.initDataUnsafe?.user;
+    // Надёжный способ: отложенный запуск
+    setTimeout(tryLoadTelegramUser, 300); // Ждём 300мс
 
-    if (user) {
-      console.log('User ID:', user.id);
-      console.log('First Name:', user.first_name);
-      console.log('Last Name:', user.last_name);
-      console.log('Username:', user.username);
-      window.userDataForGodot = user.username;
-    } else {
-      console.log('User data not available');
-    }
+    // Дополнительно можно подписаться на событие Telegram
+    Telegram.WebApp.onEvent("themeChanged", tryLoadTelegramUser);
   } else {
-    console.log('Not running in Telegram WebApp');
+    console.log("Not in Telegram");
   }
 });
 </script>
