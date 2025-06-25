@@ -94,7 +94,7 @@ body {
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-window.userDataForGodot = "nothing";
+window.userDataForGodot = "nothing12";
 
 function tryLoadTelegramUser() {
   const user = Telegram.WebApp.initDataUnsafe?.user;
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(tryLoadTelegramUser, 300); // Ждём 300мс
 
     // Дополнительно можно подписаться на событие Telegram
-    Telegram.WebApp.onEvent("themeChanged", tryLoadTelegramUser);
+    Telegram.WebApp.onEvent("viewportChanged", tryLoadTelegramUser);
   } else {
     console.log("Not in Telegram");
   }
