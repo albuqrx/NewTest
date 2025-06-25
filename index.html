@@ -93,29 +93,30 @@ body {
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <script>
-  // Пример: получение данных Telegram WebApp
-  let telegramUser = null;
+document.addEventListener('DOMContentLoaded', function() {
 
-  // Этот объект предоставляется Telegram Web App
+window.userDataForGodot = "nothing"
+
   if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.ready();
-
-    telegramUser = Telegram.WebApp.initDataUnsafe.user;
-
-    // Сохраняем в глобальной области
-    window.userDataForGodot = {
-      id: telegramUser.id,
-      username: telegramUser.username
-    };
+    
+    const user = Telegram.WebApp.initDataUnsafe.user;
+    if (user) {
+      console.log('User ID:', user.id);
+      console.log('First Name:', user.first_name);
+      console.log('Last Name:', user.last_name);
+      console.log('Username:', user.username);
+	  window.userDataForGodot = user.username
+    } else {
+      console.log('User data not available');
+    }
+    
+    // Можно расширить функционал
+    Telegram.WebApp.expand();
   } else {
-    // Тестовые данные
-    window.userDataForGodot = {
-      id: 123456789,
-      username: "test_user"
-    };
+    console.log('Not running in Telegram WebApp');
   }
-
-console.log(window.userDataForGodot)
+});
 </script>
 
 	</head>
