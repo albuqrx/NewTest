@@ -94,26 +94,28 @@ body {
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+window.userDataForGodot = "nothing";
 
-  window.userDataForGodot = "nothing"
-
+document.addEventListener('DOMContentLoaded', function () {
+  // Проверяем, доступен ли Telegram WebApp
   if (window.Telegram && Telegram.WebApp) {
     Telegram.WebApp.ready();
-    
-    const user = Telegram.WebApp.initData.user;
+
+    // Расширяем WebView
+    Telegram.WebApp.expand();
+
+    // Безопасный доступ к пользователю
+    const user = Telegram.WebApp.initDataUnsafe?.user;
+
     if (user) {
       console.log('User ID:', user.id);
       console.log('First Name:', user.first_name);
       console.log('Last Name:', user.last_name);
       console.log('Username:', user.username);
-	  window.userDataForGodot = user.username
+      window.userDataForGodot = user.username;
     } else {
       console.log('User data not available');
     }
-    
-    // Можно расширить функционал
-    Telegram.WebApp.expand();
   } else {
     console.log('Not running in Telegram WebApp');
   }
