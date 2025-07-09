@@ -92,9 +92,10 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+<link rel="manifest" href="index.manifest.json">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-    window.userDataForGodot = JSON.stringify({
+	window.userDataForGodot = JSON.stringify({
   		id: 12,
   		username: "lol",
 		name: "lolchik",
@@ -104,29 +105,29 @@ function tryLoadTelegramUser() {
   const user = Telegram.WebApp.initDataUnsafe?.user;
 
   if (user) {
-    console.log("Telegram user loaded:", user.username);
-    window.userDataForGodot = JSON.stringify({
+	console.log("Telegram user loaded:", user.username);
+	window.userDataForGodot = JSON.stringify({
   		id: user.id,
   		username: user.username,
 		name: user.first_name
 	});
   } else {
-    console.warn("User not available yet");
+	console.warn("User not available yet");
   }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   if (window.Telegram && Telegram.WebApp) {
-    Telegram.WebApp.ready();
-    Telegram.WebApp.expand();
+	Telegram.WebApp.ready();
+	Telegram.WebApp.expand();
 
-    // Надёжный способ: отложенный запуск
-    setTimeout(tryLoadTelegramUser, 300); // Ждём 300мс
+	// Надёжный способ: отложенный запуск
+	setTimeout(tryLoadTelegramUser, 300); // Ждём 300мс
 
-    // Дополнительно можно подписаться на событие Telegram
-    Telegram.WebApp.onEvent("viewportChanged", tryLoadTelegramUser);
+	// Дополнительно можно подписаться на событие Telegram
+	Telegram.WebApp.onEvent("viewportChanged", tryLoadTelegramUser);
   } else {
-    console.log("Not in Telegram");
+	console.log("Not in Telegram");
   }
 });
 </script>
@@ -149,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":1059264,"index.wasm":43699190},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":2246496,"index.wasm":43699190},"focusCanvas":true,"gdextensionLibs":[],"serviceWorker":"index.service.worker.js"};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
